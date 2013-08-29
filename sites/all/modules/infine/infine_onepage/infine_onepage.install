@@ -1,0 +1,242 @@
+<?php
+
+/**
+ * Implements hook_schema()
+ * @return array
+ */
+function infine_onepage_schema() {
+  $schema = array();
+  $schema['infine_onepage'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+      ),
+      'title' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'path' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'attributes' => array(
+        'type' => 'blob',
+        'size' => 'normal',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  $schema['infine_onepage_container'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+      ),
+      'page_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'fid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+      ),
+      'fullwidth' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+      ),
+      'weight' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+      ),
+      'attributes' => array(
+        'type' => 'blob',
+        'size' => 'normal',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  $schema['infine_onepage_row'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+      ),
+      'container_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'weight' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+      ),
+      'attributes' => array(
+        'type' => 'blob',
+        'size' => 'normal',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  $schema['infine_onepage_component'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'weight' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+      ),
+      'container_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'component' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'component_id' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'arguments' => array(
+        'type' => 'blob',
+        'size' => 'normal',
+      ),
+      'attributes' => array(
+        'type' => 'blob',
+        'size' => 'normal',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+function infine_onepage_update_7001() {
+  db_add_field(
+    'infine_onepage_component',
+    'attributes',
+    array(
+      'type' => 'blob',
+      'size' => 'normal',
+    )
+  );
+}
+
+function infine_onepage_update_7002() {
+  db_add_field(
+    'infine_onepage_component',
+    'name',
+    array(
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => TRUE,
+      'default' => '',
+    )
+  );
+}
+
+function infine_onepage_update_7003() {
+  db_add_field(
+    'infine_onepage_component',
+    'weight',
+    array(
+      'type' => 'int',
+      'unsigned' => TRUE,
+    )
+  );
+}
+
+function infine_onepage_update_7004() {
+  db_add_field(
+    'infine_onepage_row',
+    'fullwidth',
+    array(
+      'type' => 'int',
+      'size' => 'tiny',
+      'unsigned' => TRUE,
+    )
+  );
+}
+
+
+function infine_onepage_update_7005() {
+  db_add_field(
+    'infine_onepage_container',
+    'fullwidth',
+    array(
+      'type' => 'int',
+      'size' => 'tiny',
+      'unsigned' => TRUE,
+    )
+  );
+
+  db_drop_field('infine_onepage_row', 'fullwidth');
+}
+
+/**
+ * Add name field to container table
+ */
+function infine_onepage_update_7006() {
+  db_add_field(
+    'infine_onepage_container',
+    'name',
+    array(
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => TRUE,
+      'default' => '',
+    )
+  );
+}
+
+/**
+ * Add image field
+ */
+function infine_onepage_update_7007() {
+  db_add_field(
+    'infine_onepage_container',
+    'fid',
+    array(
+      'type' => 'int',
+      'unsigned' => TRUE
+    )
+  );
+}
+

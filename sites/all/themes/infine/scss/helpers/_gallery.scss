@@ -1,0 +1,19 @@
+#nav-gallery {
+  border-top: 1px solid #f4f4f4;
+}
+#gallery {
+
+  margin-bottom: 100px;
+  .item {
+    display: block; line-height: 20px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; padding: 0px; margin-bottom: 20px;
+    .item-inner { border: 1px solid #ddd; border-radius: 5px; padding: 10px;
+      .views-field-field-place  {
+        font-size: 24px;
+        font-weight: lighter;
+        text-align: left;
+        font-family: "Open Sans","Arial",sans-serif;
+        padding: 10px 0px;
+      }
+    }
+  }
+}

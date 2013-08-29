@@ -1,0 +1,8 @@
+name = Views Cycle2
+description = Responsive views slideshow
+core = 7.x
+package = Views Slideshow
+
+files[] = views_cycle2_plugin_style_cycle.inc
+
+dependency[] = views

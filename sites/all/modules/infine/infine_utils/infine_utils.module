@@ -1,0 +1,177 @@
+<?php
+
+require_once 'infine_utils.node.inc';
+
+function infine_utils_block_info() {
+  foreach (simplenews_categories_load_multiple(array(), array('block' => '1', 'show_all' => FALSE)) as $category) {
+    $blocks[$category->tid] = array(
+      'info' => t('Infine Subscription: @title', array('@title' => _simplenews_newsletter_name($category))),
+      'cache' => DRUPAL_NO_CACHE
+    );
+  }
+
+  return $blocks;
+}
+
+
+function infine_utils_block_view($delta) {
+  $newsletters = simplenews_categories_load_multiple(array(), array('block' => '1', 'show_all' => FALSE));
+  if (in_array($delta, array_keys($newsletters))) {
+
+    $form = drupal_get_form('infine_utils_simplenews_subscribe_form_' . $delta, $delta);
+
+    $block = array(
+      'subject' => t('Simplenews subscribe'),
+      'content' => $form,
+    );
+
+    return $block;
+  }
+}
+
+function infine_utils_block_configure($delta) {
+  $newsletters = simplenews_categories_load_multiple(array(), array('block' => '1', 'show_all' => FALSE));
+  if (in_array($delta, array_keys($newsletters))) {
+    $form[$delta . '_block_response'] = array(
+      '#title' => t('Response text'),
+      '#type' => 'textarea',
+      '#default_value' => variable_get($delta . '_block_response', ''),
+    );
+
+    return $form;
+  }
+}
+
+function infine_utils_block_save($delta = '', $edit = array()) {
+
+  $newsletters = simplenews_categories_load_multiple(array(), array('block' => '1', 'show_all' => FALSE));
+  if (in_array($delta, array_keys($newsletters))) {
+    variable_set($delta . '_block_response', $edit[$delta . '_block_response']);
+  }
+}
+
+function infine_utils_forms($form_id, $args) {
+  $forms = array();
+  $match = preg_match('/infine_utils_simplenews_subscribe_form_(\d+)/', $form_id, $matches);
+
+  if ($match) {
+    $forms['infine_utils_simplenews_subscribe_form_' . $matches[1]] = array(
+      'callback' => 'infine_utils_simplenews_subscribe_form',
+      'callback arguments' => array($matches[1]),
+    );
+  }
+
+  return $forms;
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $tid
+ */
+function infine_utils_simplenews_subscribe_form($form, &$form_state, $tid) {
+  $signed = FALSE;
+  if (isset($form_state['values']['signed']) || $form_state['values']['mail']) {
+    $signed = TRUE;
+  }
+
+
+  $form['tid'] = array(
+    '#type' => 'value',
+    '#value' => $tid,
+  );
+
+  $container_id = "subscription-container-" . $tid;
+
+
+  $form['#attributes']['class'][] = 'subscribe-form';
+  $form['#attributes']['class'][] = 'row';
+
+
+  $form['container'] = array(
+    '#type' => 'container',
+    '#prefix' => "<div id=$container_id>",
+    '#suffix' => "</div>",
+    '#attributes' => array(
+      'style' => 'position:relative;',
+      'class' => array('span6', 'offset1'),
+    ),
+  );
+
+  if (!$signed) {
+    $form['container']['mail'] = array(
+      '#type' => 'textfield',
+      '#placeholder' => t('Your email address'),
+      '#size' => 48,
+      '#maxlength' => 128,
+      '#required' => TRUE,
+      '#attributes' => array(
+        'class' => array('subscription-field'),
+        'style' => 'width: 100%',
+      ),
+      '#ajax' => array(
+        'keypress' => TRUE,
+        'callback' => 'infine_utils_simplenews_subscribe_form_ajax_submit',
+        'wrapper' => $container_id,
+      )
+    );
+
+    $form['container']['subscribe'] = array(
+      '#type' => 'submit',
+      '#name' => 'subscribe',
+      '#submit' => array('infine_utils_simplenews_subscribe_form_submit'),
+      '#value' => '<span class="icon-normal-right-arrow-small"></span>',
+      '#ajax' => array(
+        'keypress' => TRUE,
+        'callback' => 'infine_utils_simplenews_subscribe_form_ajax_submit',
+        'wrapper' => $container_id,
+      )
+    );
+  } else {
+    $form['container']['message']['#markup'] = '<div class="success" style="display:block;"><p>' . variable_get($tid . '_block_response') . '</p></div>';
+  }
+
+  $form['#submit'][] = 'infine_utils_simplenews_subscribe_form_submit';
+
+  return $form;
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function infine_utils_simplenews_subscribe_form_validate($form, &$form_state) {
+  if (!valid_email_address($form_state['values']['mail'])) {
+    form_set_error('mail', t("The e-mail address you supplied is not valid."));
+  }
+}
+
+function infine_utils_simplenews_subscribe_form_submit($form, &$form_state) {
+  $form_state['rebuild'] = TRUE;
+  $tid = $form_state['values']['tid'];
+
+
+  $form_state['values']['signed'] = TRUE;
+
+
+  return $form['container'];
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
+function infine_utils_simplenews_subscribe_form_ajax_submit(&$form, &$form_state) {
+  $form_state['rebuild'] = TRUE;
+  $tid = $form_state['values']['tid'];
+
+  $outcome = simplenews_subscribe_user($form_state['values']['mail'], $tid, TRUE, 'website');
+
+  if ($outcome) {
+    $form_state['values']['signed'] = TRUE;
+  }
+
+  return $form['container'];
+}
+
+

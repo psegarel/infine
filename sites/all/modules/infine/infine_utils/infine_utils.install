@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Implements hook_schema()
+ * @return mixed
+ */
+function infine_utils_schema() {
+
+  $schema['infine_feature_class'] = array(
+    'description' => 'Infine feature color scheme',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'class' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Create table for adding classes to call to action
+ */
+function infine_utils_update_7001() {
+  $schema = infine_utils_schema();
+  if (!db_table_exists('infine_feature_class')) {
+    db_create_table('infine_feature_class', $schema['infine_feature_class']);
+  }
+}

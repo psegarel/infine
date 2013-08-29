@@ -1,0 +1,6 @@
+name = Infine Utilities
+description = Infine utility functions & blocks
+core = 7.x
+package = Infine
+
+dependency[] = simplenews

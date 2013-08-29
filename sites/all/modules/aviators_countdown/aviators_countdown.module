@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * Implements hook_field_formatter_info()
+ */
+function aviators_countdown_field_formatter_info() {
+  return array(
+    'countdown' => array(
+      'label' => t('Date countdown'),
+      'field types' => array('datetime'),
+      'settings' => array(
+        'width' => 'row',
+        'column_wrapper' => 'span3',
+      ),
+    )
+  );
+}
+
+/**
+ * Implements hook_field_formatter_settings_form()
+ */
+function aviators_countdown_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $element = array();
+
+  if ($display['type'] == 'countdown') {
+
+    $element['width'] = array(
+      '#title' => t('Wrapper class'),
+      '#type' => 'textfield',
+      '#default_value' => $settings['width'],
+      '#required' => TRUE,
+    );
+
+    $element['column_wrapper'] = array(
+      '#title' => t('Wrapper class for column'),
+      '#type' => 'textfield',
+      '#default_value' => $settings['column_wrapper'],
+      '#required' => TRUE,
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary();
+ * @param $field
+ * @param $instance
+ * @param $view_mode
+ * @return string
+ */
+function aviators_countdown_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $settings = $instance['display'][$view_mode]['settings'];
+
+  $lines[] = t('Class: !class', array('!class' => $settings['width']));
+  $lines[] = t('Column wrapper: !class', array('!class' => $settings['column_wrapper']));
+
+  return implode('<br />', $lines);
+}
+
+
+/**
+ * Implements hook_field_formatter_view()
+ * @param $entity_type
+ * @param $entities
+ * @param $field
+ * @param $instances
+ * @param $langcode
+ * @param $items
+ * @param $displays
+ */
+function aviators_countdown_field_formatter_view($entity_type, $entities, $field, $instances, $langcode, &$items, $display) {
+  $elements = array();
+  $settings = $display['settings'];
+
+  if($display['type'] == 'countdown') {
+
+    foreach($items as $item) {
+      $elements[0]['#markup'] = theme('aviators_countdown', array('date' => $item, 'settings' => $settings));
+    }
+  }
+
+  return $elements;
+}
+
+/**
+ * Implements hook_theme()
+ */
+function aviators_countdown_theme() {
+  return array(
+    'aviators_countdown' => array(
+      'variables' => array('date', 'settings'),
+      'template' => 'aviators-countdown',
+    )
+  );
+}
+
+/**
+ * @param $variables
+ */
+function template_preprocess_aviators_countdown(&$variables) {
+  drupal_add_js(drupal_get_path('module', 'aviators_countdown') . '/kinetic.js');
+  drupal_add_js(drupal_get_path('module', 'aviators_countdown') . '/countdown.js');
+  drupal_add_js(drupal_get_path('module', 'aviators_countdown') . '/aviators_countdown.js');
+
+  $item = $variables['date'];
+  $startDate = strtotime($item['value']);
+  $endDate = strtotime($item['value2']);
+
+  drupal_add_js(array('aviators_countdown' => array('start' => $startDate, 'end' => $endDate, 'now' => time())), 'setting');
+}
+

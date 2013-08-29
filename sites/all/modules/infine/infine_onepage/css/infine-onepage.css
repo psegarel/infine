@@ -1,0 +1,70 @@
+.hidden {
+    display: none
+}
+.row {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.row-fullwidth {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 100%;
+    clear: both;
+}
+
+.span-fullwidth {
+    width: 100%;
+    clear: both;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-left: 0px;
+}
+
+
+.component {
+  border: 1px solid #d8d8d8;
+  background-color: #dfdfdf;
+  text-align: center;
+}
+
+.component .component-inner {
+  padding: 10px;
+}
+
+.component .component-inner > div,
+.component .component-inner > a
+{
+    display: inline-block;
+}
+
+a.container-action-edit,
+a.component-action-edit {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('settings.png');
+    cursor: pointer;
+}
+
+
+.container-wrapper {
+    background-color: #fafafa;
+    border: 1px solid #f1f0ef;
+    border-bottom-width: 5px;
+}
+.row-fullwidth.visible {
+    float: left;
+}
+.row-fullwidth.visible,
+.row.visible {
+    background-color: #f4f4f4;
+    border: 1px solid #edeceb;
+    display: block;
+}
+.onepage-placeholder {
+    border: 1px dotted #fff293;
+}
+
+
+
