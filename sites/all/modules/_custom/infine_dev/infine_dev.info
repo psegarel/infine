@@ -1,0 +1,30 @@
+name = Infine Development Tools
+description = Custom helper for setting up Infine
+core = 7.x
+package = Infine Development
+
+# REQUIRED MODULES
+dependencies[] = entity
+dependencies[] = jquery_update
+dependencies[] = ctools
+dependencies[] = date
+dependencies[] = libraries
+dependencies[] = link
+dependencies[] = menu_attributes
+dependencies[] = menu_block
+dependencies[] = quicktabs
+dependencies[] = simplenews
+dependencies[] = views
+dependencies[] = views_slideshow
+dependencies[] = views_ui
+dependencies[] = webform
+
+# INFINE MODULES
+dependencies[] = aviators_countdown
+dependencies[] = aviators_pictopro
+dependencies[] = aviators_revolution
+
+dependencies[] = infine_onepage
+dependencies[] = infine_utils
+
+dependencies[] = realia_utils
