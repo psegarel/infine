@@ -573,13 +573,11 @@ function field_attach_form($entity_type, $entity, &$form, &$form_state, $langcod
   $options['language'] = field_valid_language($langcode);
   $form += (array) _field_invoke_default('form', $entity_type, $entity, $form, $form_state, $options);
 
-
   // Add custom weight handling.
   list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
   $form['#pre_render'][] = '_field_extra_fields_pre_render';
   $form['#entity_type'] = $entity_type;
   $form['#bundle'] = $bundle;
-
 
   // Let other modules make changes to the form.
   // Avoid module_invoke_all() to let parameters be taken by reference.

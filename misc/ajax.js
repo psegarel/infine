@@ -129,8 +129,6 @@ Drupal.ajax = function (base, element, element_settings) {
   //      E.g.: ?q=path/nojs&destination=foobar
   // 5. /nojs# - Followed by a fragment.
   //      E.g.: path/nojs#myfragment
-
-    console.log(element_settings);
   this.url = element_settings.url.replace(/\/nojs(\/|$|\?|&|#)/g, '/ajax$1');
   this.wrapper = '#' + element_settings.wrapper;
 

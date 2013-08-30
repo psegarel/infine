@@ -53,8 +53,6 @@ function block_admin_display_prepare_blocks($theme) {
   $compare_theme = &drupal_static('_block_compare:theme');
   $compare_theme = $theme;
   usort($blocks, '_block_compare');
-
-
   return $blocks;
 }
 
