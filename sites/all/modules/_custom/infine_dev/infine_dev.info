@@ -16,8 +16,21 @@ dependencies[] = quicktabs
 dependencies[] = simplenews
 dependencies[] = views
 dependencies[] = views_slideshow
+dependencies[] = views_slideshow_cycle
+dependencies[] = views_cycle2
 dependencies[] = views_ui
 dependencies[] = webform
+
+# FIELDS
+dependencies[] = field_group
+dependencies[] = field_group_views
+dependencies[] = views_field
+
+# LOCATION
+dependencies[] = gmap3_tools
+
+# SEO
+dependencies[] = metatag
 
 # INFINE MODULES
 dependencies[] = aviators_countdown
