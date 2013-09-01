@@ -1,0 +1,10 @@
+name = infine_custom_menus
+core = 7.x
+package = Features
+dependencies[] = features
+dependencies[] = menu
+features[features_api][] = api:2
+features[menu_custom][] = menu-social
+features[menu_links][] = menu-social:http://facebook.com
+features[menu_links][] = menu-social:http://twitter.com
+features[menu_links][] = menu-social:http://youtube.com

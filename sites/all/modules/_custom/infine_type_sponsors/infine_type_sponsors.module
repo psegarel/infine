@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the infine_type_sponsors feature.
+ */
+
+include_once 'infine_type_sponsors.features.inc';

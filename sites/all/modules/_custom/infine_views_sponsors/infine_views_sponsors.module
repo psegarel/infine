@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the infine_views_sponsors feature.
+ */
+
+include_once 'infine_views_sponsors.features.inc';
