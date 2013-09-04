@@ -4,6 +4,8 @@
   <?php print render($title_suffix); ?>
 
 
+
+
     <div class="span7">
       <?php print render($content['field_presenter']); ?>
       <?php print render($content['field_presenters_title']); ?>

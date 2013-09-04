@@ -64,7 +64,7 @@
     <div class="footer container">
       <div class="footer-inner">
         <div class="row">
-          <?php if ($page['footer_left']): ?>
+          <?php if ($page['footer_right']): ?>
             <div class="item span4">
               <?php print drupal_render($page['footer_left']); ?>
             </div>
