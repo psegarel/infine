@@ -3,12 +3,6 @@
   <?php print render($title_prefix); ?>
   <?php print render($title_suffix); ?>
 
-    <div class="span2 image center">
-        <div class="image-box">
-          <?php print render($content['field_speaker_image']); ?>
-        </div>
-    </div>
-
 
     <div class="span7">
       <?php print render($content['field_presenter']); ?>
