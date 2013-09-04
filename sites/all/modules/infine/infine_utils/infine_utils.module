@@ -71,10 +71,13 @@ function infine_utils_forms($form_id, $args) {
  */
 function infine_utils_simplenews_subscribe_form($form, &$form_state, $tid) {
   $signed = FALSE;
-  if (isset($form_state['values']['signed']) || $form_state['values']['mail']) {
-    $signed = TRUE;
-  }
 
+	// Custom modification
+	if(isset($form_state['values']) && isset($form_state['values']['mail']) ){
+	  if (isset($form_state['values']['signed']) || $form_state['values']['mail']) {
+	    $signed = TRUE;
+	  }	
+	}
 
   $form['tid'] = array(
     '#type' => 'value',
