@@ -1,8 +1,12 @@
 .our-partners-wrapper { background-color: #f7f7f7;
   .our-partners { padding-bottom: 60px;
+    				/* padding-top: 50px; */ 
     h2 { color: $color-dark; font-weight: lighter; }
-    img { @include transition(all 0.2s ease); /* opacity:0.3; */ padding-top: 50px; text-align: center;
-      &:hover { /* opacity:0.8;  */}
+    img { 	@include transition(all 0.2s ease); 
+    		/* opacity:0.3; */ 
+    		text-align: center;
+    		border: 1px solid #ddd;
+      		&:hover { /* opacity:0.8;  */}
     }
   }
 }
