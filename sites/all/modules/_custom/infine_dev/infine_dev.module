@@ -1,0 +1,57 @@
+<?php 
+
+/**
+ * Implements hook_theme()
+ * @return array
+ */
+// function infine_dev_theme()
+// {
+// 	$theme = array(	'revolution_slider' => array(
+//       				'variables' => array('slider'),
+//       				'template' => drupal_get_path('module', 'aviators_revolution').'/template/revolution_slider',
+//     					)
+// 					);			
+// 	return $theme;
+// }
+
+/**
+ * Implements hook_block_info().
+ *
+ * This hook declares what blocks are provided by the module.
+ */
+// function infine_dev_block_info() {
+// 
+// 	//Retrieve the slider with delta ID, hardcoded here!!!
+// 	$sliders = entity_load('revolution_slider', array(4), $conditions, $reset);
+// 	foreach($sliders as $slider) {
+// 	  if(!is_array($slider->attributes)) {
+// 	    $slider->attributes = unserialize($slider->attributes);
+// 	  }
+// 	}
+// 			
+// 	$blocks['another_revolution_slider'] = array(
+// 		'info' => t('Another Revolution Slider'),
+// 		'status' => TRUE,
+// 		'visibility' => BLOCK_VISIBILITY_LISTED,  // Not usually provided.
+// 		'slider'	=> $sliders,
+// 		'#theme'	=> 'revolution_slider',
+// 	);
+// 	return $blocks;
+// }
+
+// function infine_dev_preprocess(&$variables, $hook)
+// {
+// 	if($variables['is_front'])
+// 	{
+// 	}
+// }
+// 
+// function _infine_dev_block_render($module, $block_id , $title = '<none>') 
+// {
+//   $block = block_load($module, $block_id);
+//   $block->title = $title;
+//   $block_content = _block_render_blocks(array($block));
+//   $build = _block_get_renderable_array($block_content);
+//   $block_rendered = drupal_render($build);
+//   return $block_rendered;
+// }

@@ -57,6 +57,16 @@
   </div>
   <!-- /.navigation -->
 
+
+	<!-- Revolution Slider -->
+	<div id="nav-header" class="header-wrapper">
+		<div class="header">
+			<div id="slider-content">
+				<?php print $messages; ?>
+			</div>
+		</div>
+	</div>
+
   <?php print render($page['content']) ?>
 
 

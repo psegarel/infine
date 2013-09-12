@@ -21,3 +21,4 @@ sites/all/themes/README.txt
 
 # Ignore info files
 error_log
+sites/all/modules/examples
